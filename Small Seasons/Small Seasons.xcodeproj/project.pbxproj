@@ -19,9 +19,12 @@
 		AE176DB92B64FB6200918458 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE176DB82B64FB6200918458 /* AppIntent.swift */; };
 		AE176DBB2B64FB6600918458 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE176DBA2B64FB6600918458 /* Assets.xcassets */; };
 		AE176DBF2B64FB6700918458 /* SeasonsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AE176DAB2B64FB6200918458 /* SeasonsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		AE176DC52B64FF7500918458 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = AE176DC42B64FF7500918458 /* content.json */; };
 		AE176DC62B65059700918458 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE176D9B2B64FB4D00918458 /* ContentView.swift */; };
 		AE176DC72B65066100918458 /* SeasonsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE176DB62B64FB6200918458 /* SeasonsWidget.swift */; };
+		AE176DCB2B65332F00918458 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = AE176DC92B65332E00918458 /* content.json */; };
+		AE176DCC2B65332F00918458 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = AE176DC92B65332E00918458 /* content.json */; };
+		AE176DCD2B65332F00918458 /* order.py in Resources */ = {isa = PBXBuildFile; fileRef = AE176DCA2B65332E00918458 /* order.py */; };
+		AE176DCE2B65332F00918458 /* order.py in Resources */ = {isa = PBXBuildFile; fileRef = AE176DCA2B65332E00918458 /* order.py */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +66,8 @@
 		AE176DB82B64FB6200918458 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		AE176DBA2B64FB6600918458 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE176DBC2B64FB6600918458 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AE176DC42B64FF7500918458 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
+		AE176DC92B65332E00918458 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
+		AE176DCA2B65332E00918458 /* order.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = order.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +93,7 @@
 		AE176D8D2B64FB4D00918458 = {
 			isa = PBXGroup;
 			children = (
-				AE176DC42B64FF7500918458 /* content.json */,
+				AE176DC82B65332E00918458 /* smallseasons */,
 				AE176D982B64FB4D00918458 /* Small Seasons */,
 				AE176DB12B64FB6200918458 /* SeasonsWidget */,
 				AE176DAC2B64FB6200918458 /* Frameworks */,
@@ -145,6 +149,15 @@
 				AE176DBC2B64FB6600918458 /* Info.plist */,
 			);
 			path = SeasonsWidget;
+			sourceTree = "<group>";
+		};
+		AE176DC82B65332E00918458 /* smallseasons */ = {
+			isa = PBXGroup;
+			children = (
+				AE176DC92B65332E00918458 /* content.json */,
+				AE176DCA2B65332E00918458 /* order.py */,
+			);
+			path = smallseasons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,9 +241,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE176DCD2B65332F00918458 /* order.py in Resources */,
 				AE176DA12B64FB5100918458 /* Preview Assets.xcassets in Resources */,
 				AE176D9E2B64FB5100918458 /* Assets.xcassets in Resources */,
-				AE176DC52B64FF7500918458 /* content.json in Resources */,
+				AE176DCB2B65332F00918458 /* content.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,7 +252,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE176DCE2B65332F00918458 /* order.py in Resources */,
 				AE176DBB2B64FB6600918458 /* Assets.xcassets in Resources */,
+				AE176DCC2B65332F00918458 /* content.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +419,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Small Seasons/Preview Content\"";
@@ -433,6 +450,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Small Seasons/Preview Content\"";

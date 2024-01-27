@@ -2,25 +2,46 @@ import WidgetKit
 import SwiftUI
 
 struct ContentView: View {
-    @State private var seasonData: (id: String, kanji: String, notes: String?, description: String?) = ("", "", nil, nil)
+    @State private var seasonData: (id: String, kanji: String, notes: String?, description: String?, title: String?) = ("", "", nil, nil, nil)
+    @State private var allSeasons: [Sekki] = []
 
-    // Load season data when the view appears
     private func loadSeason() {
-        seasonData = loadSeasonData(for: .large)  // Choose the appropriate size
+        seasonData = loadSeasonData(for: .large)
     }
 
+    private func loadAllSeasons() {
+        allSeasons = loadAllSeasonData()
+    }
+    
     var body: some View {
         NavigationView {
             List {
                 Section {
-                    if !seasonData.kanji.isEmpty {
-                        SeasonCardView(seasonData: seasonData)
+                    ForEach(allSeasons, id: \.id) { sekki in
+                        SeasonCardView(seasonData: (id: sekki.id,
+                                                    kanji: sekki.kanji,
+                                                    notes: sekki.notes,
+                                                    title: sekki.title,
+                                                    description: sekki.description))
+                            .cornerRadius(6)
+                            .border(sekki.id == seasonData.id ? Color.yellow : Color.clear, width: 2)
                     }
                 }
+
+                Section {
+                    Link(destination: URL(string: "https://smallseasons.guide")!) {
+                        Text("https://smallseasons.guide")
+                            .frame(maxWidth: .infinity, alignment: .center) // Center-align the text
+                            .foregroundColor(.primary)
+                            .underline()
+                    }
+                }
+                .listRowInsets(EdgeInsets())
             }
             .navigationBarTitle("Small Seasons", displayMode: .inline)
             .onAppear {
                 loadSeason()
+                loadAllSeasons()
             }
         }
     }
@@ -28,28 +49,22 @@ struct ContentView: View {
 
 // Custom card view for the season data
 struct SeasonCardView: View {
-    var seasonData: (id: String, kanji: String, notes: String?, description: String?)
+    var seasonData: (id: String, kanji: String, notes: String?, title: String?, description: String?)
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack() {
             Text(seasonData.id)
                 .font(.headline)
-                .foregroundColor(.primary) // Adapts to light/dark mode
+                .foregroundColor(.primary)
             Text(seasonData.kanji)
-                .foregroundColor(.primary) // Adapts to light/dark mode
+                .foregroundColor(.primary)
             if let description = seasonData.description {
                 Text(description)
-                    .foregroundColor(.primary) // Adapts to light/dark mode
-            }
-            Link(destination: URL(string: "https://smallseasons.guide")!) {
-                Text("https://smallseasons.guide")
-                    .foregroundColor(.primary) // Adapts to light/dark mode
-                    .underline()
+                    .foregroundColor(.primary)
             }
         }
-        .padding(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
-        .cornerRadius(10)
-        .listRowInsets(EdgeInsets())
+        .padding(28)
+        .cornerRadius(6)
     }
 }
 

@@ -12,6 +12,7 @@ struct Sekki: Decodable {
     let id: String
     let kanji: String
     let notes: String
+    let title: String
     let description: String
     let startDate: String
 }
@@ -24,11 +25,20 @@ enum WidgetSize {
     case small, medium, large
 }
 
-func loadSeasonData(for size: WidgetSize) -> (id: String, kanji: String, notes: String?, description: String?) {
+func loadAllSeasonData() -> ([Sekki]) {
     guard let url = Bundle.main.url(forResource: "content", withExtension: "json"),
           let data = try? Data(contentsOf: url),
           let seasonsData = try? JSONDecoder().decode(SeasonsData.self, from: data) else {
-        return ("", "", nil, nil)
+        return []
+    }
+    return seasonsData.sekki
+}
+
+func loadSeasonData(for size: WidgetSize) -> (id: String, kanji: String, notes: String?, description: String?, title: String?) {
+    guard let url = Bundle.main.url(forResource: "content", withExtension: "json"),
+          let data = try? Data(contentsOf: url),
+          let seasonsData = try? JSONDecoder().decode(SeasonsData.self, from: data) else {
+        return ("", "", nil, nil, nil)
     }
 
     let formatter = DateFormatter()
@@ -55,27 +65,26 @@ func loadSeasonData(for size: WidgetSize) -> (id: String, kanji: String, notes: 
     }
 
     guard let season = mostRecentSeason else {
-        return ("", "", nil, nil)
+        return ("", "", nil, nil, nil)
     }
 
-    switch size {
-    case .small:
-        return (season.id, season.kanji, nil, nil)
-    case .medium:
-        return (season.id, season.kanji, season.notes, nil)
-    case .large:
-        return (season.id, season.kanji, season.notes, season.description)
-    }
+    return (season.id, season.kanji, season.notes, season.description, season.title)
 }
 
 func textForWidget(widgetSize: WidgetSize) -> String {
     switch widgetSize {
     case .small:
-        let smallWidgetData = loadSeasonData(for: .small)
-        return smallWidgetData.id
+        let smallWidgetData = loadSeasonData(for: .large)
+        let smallWidgetText = """
+        \(smallWidgetData.kanji)
+        \(smallWidgetData.id) \n\
+        \(smallWidgetData.title ?? "")
+        """
+        return smallWidgetText
     case .medium:
-        let mediumWidgetData = loadSeasonData(for: .medium)
+        let mediumWidgetData = loadSeasonData(for: .large)
         let mediumWidgetText = """
+        \(mediumWidgetData.kanji) \n\
         \(mediumWidgetData.id) \n\
         \(mediumWidgetData.notes ?? "")
         """
@@ -85,7 +94,8 @@ func textForWidget(widgetSize: WidgetSize) -> String {
         let largeWidgetText = """
         \(largeWidgetData.kanji) \n\
         \(largeWidgetData.id) \n\
-        \(largeWidgetData.notes ?? "")
+        \(largeWidgetData.title ?? "") \n\
+        \(largeWidgetData.description ?? "")
         """
         return largeWidgetText
     }
@@ -108,6 +118,7 @@ struct SmallSeasonsWidgetEntryView: View {
                             .font(.system(.body, design: .serif).italic())
                             .foregroundColor(Color(white: 0.2))
                             .multilineTextAlignment(.center)
+                            .lineSpacing(6)
                             .padding(.top, 5)
                     }
 
@@ -117,6 +128,8 @@ struct SmallSeasonsWidgetEntryView: View {
                     Text(mediumWidgetText)
                         .font(.system(.body, design: .serif).italic())
                         .foregroundColor(Color(white: 0.2))
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(6)
                         .padding(.top, 5)
 
                 case .systemLarge:
@@ -125,6 +138,8 @@ struct SmallSeasonsWidgetEntryView: View {
                     Text(largeWidgetText)
                         .font(.system(.body, design: .serif).italic())
                         .foregroundColor(Color(white: 0.2))
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(6)
                         .padding(.top, 5)
 
                 default:
@@ -149,7 +164,7 @@ struct SmallSeasonsProvider: TimelineProvider {
     typealias Entry = SimpleEntry
     
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), sekki: Sekki(id: "Loading", kanji: "", notes: "", description: "", startDate: ""))
+        SimpleEntry(date: Date(), sekki: Sekki(id: "Loading", kanji: "", notes: "", title: "", description: "", startDate: ""))
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
@@ -169,7 +184,7 @@ struct SmallSeasonsProvider: TimelineProvider {
     private func loadCurrentSekki() -> Sekki {
         // Assuming loadSeasonData already returns the current Sekki based on today's date.
         let currentSekkiData = loadSeasonData(for: .large)  // Choose size based on your widget design
-        return Sekki(id: currentSekkiData.id, kanji: currentSekkiData.kanji, notes: currentSekkiData.notes ?? "", description: currentSekkiData.description ?? "", startDate: "")
+        return Sekki(id: currentSekkiData.id, kanji: currentSekkiData.kanji, notes: currentSekkiData.notes ?? "", title: currentSekkiData.title ?? "", description: currentSekkiData.description ?? "", startDate: "")
     }
 }
 
@@ -177,28 +192,3 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
     let sekki: Sekki
 }
-
-/*
-struct SeasonsWidgetEntryView : View {
-    var entry: SimpleEntry
-
-    var body: some View {
-        Text(entry.sekki.kanji)
-        // Add more UI elements as needed based on your design
-    }
-}
- 
-@main
-struct SeasonsWidget: Widget {
-    let kind: String = "SeasonsWidget"
-
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            SeasonsWidgetEntryView(entry: entry)
-        }
-        .configurationDisplayName("Small Seasons")
-        .description("Shows the current season based on traditional Japanese calendar.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-    }
-}
-*/
