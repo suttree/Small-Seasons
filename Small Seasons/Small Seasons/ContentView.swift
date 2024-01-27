@@ -24,7 +24,7 @@ struct ContentView: View {
                                                     title: sekki.title,
                                                     description: sekki.description))
                             .cornerRadius(6)
-                            .border(sekki.id == seasonData.id ? Color.yellow : Color.clear, width: 2)
+                            .border(sekki.id == seasonData.id ? Color.yellow : Color.clear, width: 1)
                     }
                 }
 
