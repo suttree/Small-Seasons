@@ -16,14 +16,25 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                Section {
-                    ForEach(allSeasons, id: \.id) { sekki in
+                Section(header: Text("Welcome")) {
+                    Text("Prior to the Gregorian calendar, farmers in China and Japan broke each year down into 24 sekki or “small seasons.” These seasons didn't use dates to mark seasons, but instead, they divided up the year by natural phenomena.")
+                        .padding()
+                        .lineSpacing(4)
+                }
+                
+                Section(header: Text("Installation")) {
+                    Text("To add Small Seasons to your home screen, press and hold on the screen until the apps enter editing mode, tap the plus icon, select 'Small Seasons' from the widget gallery, choose the desired size, and tap 'Add Widget'. Position it as preferred and press 'Done' to complete the setup.")
+                        .padding()
+                        .lineSpacing(4)
+                }
+
+                ForEach(allSeasons, id: \.id) { sekki in
+                    Section(header: Text(sekki.kanji)) {
                         SeasonCardView(seasonData: (id: sekki.id,
                                                     kanji: sekki.kanji,
                                                     notes: sekki.notes,
                                                     title: sekki.title,
                                                     description: sekki.description))
-                            .cornerRadius(6)
                             .border(sekki.id == seasonData.id ? Color.yellow : Color.clear, width: 1)
                     }
                 }
@@ -56,15 +67,18 @@ struct SeasonCardView: View {
             Text(seasonData.id)
                 .font(.headline)
                 .foregroundColor(.primary)
-            Text(seasonData.kanji)
-                .foregroundColor(.primary)
+                .foregroundColor(Color(white: 0.2))
+                .lineSpacing(6)
+                .multilineTextAlignment(.leading)
             if let description = seasonData.description {
                 Text(description)
                     .foregroundColor(.primary)
+                    .foregroundColor(Color(white: 0.2))
+                    .lineSpacing(4)
+                    .multilineTextAlignment(.leading)
             }
         }
-        .padding(28)
-        .cornerRadius(6)
+        .padding(14)
     }
 }
 

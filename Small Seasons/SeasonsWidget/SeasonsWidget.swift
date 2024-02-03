@@ -119,7 +119,7 @@ struct SmallSeasonsWidgetEntryView: View {
                             .foregroundColor(Color(white: 0.2))
                             .multilineTextAlignment(.center)
                             .lineSpacing(6)
-                            .padding(.top, 5)
+                            .padding(.top, 6)
                     }
 
                 case .systemMedium:
@@ -130,7 +130,7 @@ struct SmallSeasonsWidgetEntryView: View {
                         .foregroundColor(Color(white: 0.2))
                         .multilineTextAlignment(.center)
                         .lineSpacing(6)
-                        .padding(.top, 5)
+                        .padding(.top, 6)
 
                 case .systemLarge:
                     let largeWidgetText = textForWidget(widgetSize: .large)
@@ -139,7 +139,7 @@ struct SmallSeasonsWidgetEntryView: View {
                         .font(.system(.body, design: .serif).italic())
                         .foregroundColor(Color(white: 0.2))
                         .multilineTextAlignment(.center)
-                        .lineSpacing(6)
+                        .lineSpacing(8)
                         .padding(.top, 5)
 
                 default:
@@ -150,7 +150,7 @@ struct SmallSeasonsWidgetEntryView: View {
                             .font(.system(.body, design: .serif).italic())
                             .foregroundColor(Color(white: 0.2))
                             .multilineTextAlignment(.center)
-                            .padding(.top, 5)
+                            .padding(.top, 6)
                     }
                 }
             }
