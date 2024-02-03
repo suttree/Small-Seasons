@@ -16,20 +16,24 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Welcome")) {
-                    Text("Prior to the Gregorian calendar, farmers in China and Japan broke each year down into 24 sekki or “small seasons.” These seasons didn't use dates to mark seasons, but instead, they divided up the year by natural phenomena.")
-                        .padding()
-                        .lineSpacing(4)
+                // Welcome Section
+                NavigationLink(destination: WelcomeView()) {
+                    Text("About")
                 }
                 
-                Section(header: Text("Installation")) {
-                    Text("To add Small Seasons to your home screen, press and hold on the screen until the apps enter editing mode, tap the plus icon, select 'Small Seasons' from the widget gallery, choose the desired size, and tap 'Add Widget'. Position it as preferred and press 'Done' to complete the setup.")
-                        .padding()
-                        .lineSpacing(4)
+                // Instructions Section
+                NavigationLink(destination: InstructionsView()) {
+                    Text("Install")
                 }
-
+                
+                Section(header: Text("All Seasons")
+                        .font(.headline)
+                        .padding(.top, 18)) {
+                }
+                .listStyle(GroupedListStyle())
+            
                 ForEach(allSeasons, id: \.id) { sekki in
-                    Section(header: Text(sekki.kanji)) {
+                    Section(header: Text(sekki.kanji).frame(maxWidth: .infinity, alignment: .leading)) {
                         SeasonCardView(seasonData: (id: sekki.id,
                                                     kanji: sekki.kanji,
                                                     notes: sekki.notes,
@@ -56,6 +60,40 @@ struct ContentView: View {
             }
         }
     }
+    
+    // Welcome screen content
+    struct WelcomeView: View {
+        var body: some View {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("Welcome to Small Seasons")
+                        .font(.title)
+                    
+                    Text("Prior to the Gregorian calendar, farmers in China and Japan broke each year down into 24 sekki or “small seasons.” These seasons didn't use dates to mark seasons, but instead, they divided up the year by natural phenomena.")
+                        .padding()
+                }
+                .padding()
+                .navigationBarTitle("Welcome", displayMode: .inline)
+            }
+        }
+    }
+
+    // Instructions screen content
+    struct InstructionsView: View {
+        var body: some View {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("Widget Installation Instructions")
+                        .font(.title)
+                    
+                    Text("To add Small Seasons to your home screen, press and hold on the screen until the apps enter editing mode, tap the plus icon, select 'Small Seasons' from the widget gallery, choose the desired size, and tap 'Add Widget'. Position it as preferred and press 'Done' to complete the setup.")
+                        .padding()
+                }
+                .padding()
+                .navigationBarTitle("Instructions", displayMode: .inline)
+            }
+        }
+    }
 }
 
 // Custom card view for the season data
@@ -78,7 +116,7 @@ struct SeasonCardView: View {
                     .multilineTextAlignment(.leading)
             }
         }
-        .padding(14)
+        .padding(18)
     }
 }
 
