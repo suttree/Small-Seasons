@@ -104,7 +104,6 @@ func textForWidget(widgetSize: WidgetSize) -> String {
 struct SmallSeasonsWidgetEntryView: View {
     var entry: SimpleEntry
 
-    // This environment variable tells us what size the widget is
     @Environment(\.widgetFamily) var widgetFamily
 
     var body: some View {
@@ -133,14 +132,39 @@ struct SmallSeasonsWidgetEntryView: View {
                         .padding(.top, 6)
 
                 case .systemLarge:
-                    let largeWidgetText = textForWidget(widgetSize: .large)
+                    let sekki = loadSeasonData(for: .large)
                     
-                    Text(largeWidgetText)
-                        .font(.system(.body, design: .serif).italic())
+                    VStack {
+                        Text(sekki.kanji)
+                            .font(.system(size: 24, weight: .bold, design: .serif))
+                            .foregroundColor(Color(white: 0.2))
+                            .multilineTextAlignment(.center)
+                            .lineSpacing(4)
+                            .padding(4)
+                        
+                        VStack {
+                            Text(sekki.id)
+                                .font(.system(.body, design: .serif))
+                                .italic()
+                                .lineSpacing(4)
+                                .padding(4)
+                            
+                            Text(sekki.title ?? "")
+                                .font(.system(.body, design: .serif))
+                                .italic()
+                                .lineSpacing(4)
+                                .padding(6)
+                            
+                            Text(sekki.description ?? "")
+                                .font(.system(.body, design: .serif))
+                                .italic()
+                                .lineSpacing(4)
+                        }
                         .foregroundColor(Color(white: 0.2))
                         .multilineTextAlignment(.center)
                         .lineSpacing(8)
-                        .padding(.top, 5)
+                        .padding(.bottom, 6)
+                    }
 
                 default:
                     let smallWidgetText = textForWidget(widgetSize: .small)
@@ -182,7 +206,6 @@ struct SmallSeasonsProvider: TimelineProvider {
     }
 
     private func loadCurrentSekki() -> Sekki {
-        // Assuming loadSeasonData already returns the current Sekki based on today's date.
         let currentSekkiData = loadSeasonData(for: .large)  // Choose size based on your widget design
         return Sekki(id: currentSekkiData.id, kanji: currentSekkiData.kanji, notes: currentSekkiData.notes ?? "", title: currentSekkiData.title ?? "", description: currentSekkiData.description ?? "", startDate: "")
     }

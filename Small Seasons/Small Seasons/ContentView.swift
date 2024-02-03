@@ -16,14 +16,12 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                // Welcome Section
                 NavigationLink(destination: WelcomeView()) {
                     Text("About")
                 }
                 
-                // Instructions Section
                 NavigationLink(destination: InstructionsView()) {
-                    Text("Install")
+                    Text("Installation")
                 }
                 
                 Section(header: Text("All Seasons")
@@ -33,20 +31,20 @@ struct ContentView: View {
                 .listStyle(GroupedListStyle())
             
                 ForEach(allSeasons, id: \.id) { sekki in
-                    Section(header: Text(sekki.kanji).frame(maxWidth: .infinity, alignment: .leading)) {
+                    Section(header: Text("\(sekki.kanji)" + (sekki.id == seasonData.id ? " — NOW" : ""))) {
                         SeasonCardView(seasonData: (id: sekki.id,
                                                     kanji: sekki.kanji,
                                                     notes: sekki.notes,
                                                     title: sekki.title,
                                                     description: sekki.description))
-                            .border(sekki.id == seasonData.id ? Color.yellow : Color.clear, width: 1)
                     }
+                    .listStyle(InsetGroupedListStyle())
                 }
 
                 Section {
                     Link(destination: URL(string: "https://smallseasons.guide")!) {
                         Text("https://smallseasons.guide")
-                            .frame(maxWidth: .infinity, alignment: .center) // Center-align the text
+                            .frame(maxWidth: .infinity, alignment: .center)
                             .foregroundColor(.primary)
                             .underline()
                     }
@@ -61,7 +59,6 @@ struct ContentView: View {
         }
     }
     
-    // Welcome screen content
     struct WelcomeView: View {
         var body: some View {
             ScrollView {
@@ -69,21 +66,23 @@ struct ContentView: View {
                     Text("Welcome to Small Seasons")
                         .font(.title)
                     
+                    Text("In agricultural days, staying in-tune with the seasons was important. When should we plant seeds? When should we harvest? When will the rains come? Are they late this year? Knowing what was happening with nature was the difference between a plentiful harvest and a barren crop.")
+                        .padding()
+                    
                     Text("Prior to the Gregorian calendar, farmers in China and Japan broke each year down into 24 sekki or “small seasons.” These seasons didn't use dates to mark seasons, but instead, they divided up the year by natural phenomena.")
                         .padding()
                 }
                 .padding()
-                .navigationBarTitle("Welcome", displayMode: .inline)
+                .navigationBarTitle("About", displayMode: .inline)
             }
         }
     }
 
-    // Instructions screen content
     struct InstructionsView: View {
         var body: some View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("Widget Installation Instructions")
+                    Text("Installation")
                         .font(.title)
                     
                     Text("To add Small Seasons to your home screen, press and hold on the screen until the apps enter editing mode, tap the plus icon, select 'Small Seasons' from the widget gallery, choose the desired size, and tap 'Add Widget'. Position it as preferred and press 'Done' to complete the setup.")
@@ -96,7 +95,7 @@ struct ContentView: View {
     }
 }
 
-// Custom card view for the season data
+// Custom card view for sekki
 struct SeasonCardView: View {
     var seasonData: (id: String, kanji: String, notes: String?, title: String?, description: String?)
     
