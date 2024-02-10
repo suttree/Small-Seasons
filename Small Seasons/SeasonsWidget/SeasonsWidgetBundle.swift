@@ -28,5 +28,3 @@ struct SeasonsWidget: Widget {
         .description("Small Seasons")
     }
 }
-
-
