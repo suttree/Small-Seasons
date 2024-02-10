@@ -122,49 +122,63 @@ struct SmallSeasonsWidgetEntryView: View {
                     }
 
                 case .systemMedium:
-                    let mediumWidgetText = textForWidget(widgetSize: .medium)
-                    
-                    Text(mediumWidgetText)
-                        .font(.system(.body, design: .serif).italic())
-                        .foregroundColor(Color(white: 0.2))
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(6)
-                        .padding(.top, 6)
-
-                case .systemLarge:
-                    let sekki = loadSeasonData(for: .large)
-                    
+                    let sekki = loadSeasonData(for: .medium)
+                        
                     VStack {
                         Text(sekki.kanji)
-                            .font(.system(size: 24, weight: .bold, design: .serif))
-                            .foregroundColor(Color(white: 0.2))
-                            .multilineTextAlignment(.center)
+                            .font(.system(.title2, design: .serif))
+                            .italic()
                             .lineSpacing(4)
                             .padding(4)
                         
-                        VStack {
-                            Text(sekki.id)
-                                .font(.system(.body, design: .serif))
-                                .italic()
-                                .lineSpacing(4)
-                                .padding(4)
-                            
-                            Text(sekki.title ?? "")
-                                .font(.system(.body, design: .serif))
-                                .italic()
-                                .lineSpacing(4)
-                                .padding(6)
-                            
-                            Text(sekki.description ?? "")
-                                .font(.system(.body, design: .serif))
-                                .italic()
-                                .lineSpacing(4)
-                        }
-                        .foregroundColor(Color(white: 0.2))
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(8)
-                        .padding(.bottom, 6)
+                        Text(sekki.id)
+                            .font(.system(.body, design: .serif))
+                            .italic()
+                            .lineSpacing(4)
+                            .padding(4)
+                        
+                        Text(sekki.notes ?? "")
+                            .font(.system(.body, design: .serif))
+                            .italic()
+                            .lineSpacing(4)
+                            .padding(6)
                     }
+                    .foregroundColor(Color(white: 0.2))
+                    .multilineTextAlignment(.leading)
+                    .lineSpacing(4)
+                    .padding(.bottom, 2)
+
+                case .systemLarge:
+                    let sekki = loadSeasonData(for: .large)
+                        
+                    VStack {
+                        Text(sekki.kanji)
+                            .font(.system(.title2, design: .serif))
+                            .italic()
+                            .lineSpacing(4)
+                            .padding(4)
+                        
+                        Text(sekki.id)
+                            .font(.system(.body, design: .serif))
+                            .italic()
+                            .lineSpacing(4)
+                            .padding(4)
+                        
+                        Text(sekki.title ?? "")
+                            .font(.system(.body, design: .serif))
+                            .italic()
+                            .lineSpacing(4)
+                            .padding(6)
+                        
+                        Text(sekki.description ?? "")
+                            .font(.system(.body, design: .serif))
+                            .italic()
+                            .lineSpacing(4)
+                    }
+                    .foregroundColor(Color(white: 0.2))
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(8)
+                    .padding(.bottom, 6)
 
                 default:
                     let smallWidgetText = textForWidget(widgetSize: .small)
@@ -188,7 +202,7 @@ struct SmallSeasonsProvider: TimelineProvider {
     typealias Entry = SimpleEntry
     
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), sekki: Sekki(id: "Loading", kanji: "", notes: "", title: "", description: "", startDate: ""))
+        SimpleEntry(date: Date(), sekki: loadCurrentSekki())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
