@@ -17,58 +17,58 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-                    List {
-                        DisclosureGroup("About", isExpanded: $isAboutExpanded) {
-                            Text("In agricultural days, staying in-tune with the seasons was important. When should we plant seeds? When should we harvest? When will the rains come? Are they late this year? Knowing what was happening with nature was the difference between a plentiful harvest and a barren crop.\n\nPrior to the Gregorian calendar, farmers in China and Japan broke each year down into 24 sekki or “small seasons.” These seasons didn't use dates to mark seasons, but instead, they divided up the year by natural phenomena.")
-                                .padding(4)
-                                .lineSpacing(3)
-                        }
-                        .accentColor(.secondary)
-                        .lineSpacing(6)
-                        .padding(.bottom, 4)
+            List {
+                DisclosureGroup("About", isExpanded: $isAboutExpanded) {
+                    Text("In agricultural days, staying in-tune with the seasons was important. When should we plant seeds? When should we harvest? When will the rains come? Are they late this year? Knowing what was happening with nature was the difference between a plentiful harvest and a barren crop.\n\nPrior to the Gregorian calendar, farmers in China and Japan broke each year down into 24 sekki or “small seasons.” These seasons didn't use dates to mark seasons, but instead, they divided up the year by natural phenomena.")
+                        .padding(4)
+                        .lineSpacing(3)
+                }
+                .accentColor(.secondary)
+                .lineSpacing(6)
+                .padding(.bottom, 4)
 
-                        DisclosureGroup("Installation", isExpanded: $isInstallationExpanded) {
-                            Text("To add Small Seasons to your home screen, press and hold on the screen until the apps enter editing mode, tap the plus icon, select 'Small Seasons' from the widget gallery, choose the desired size, and tap 'Add Widget'. Position it as preferred and press 'Done' to complete the setup.")
-                                .padding(4)
-                                .lineSpacing(3)
-                        }
-                        .accentColor(.secondary)
-                        .lineSpacing(6)
-                        .padding(.bottom, 4)
+                DisclosureGroup("Installation", isExpanded: $isInstallationExpanded) {
+                    Text("To add Small Seasons to your home screen, press and hold on the screen until the apps enter editing mode, tap the plus icon, select 'Small Seasons' from the widget gallery, choose the desired size, and tap 'Add Widget'. Position it as preferred and press 'Done' to complete the setup.")
+                        .padding(4)
+                        .lineSpacing(3)
+                }
+                .accentColor(.secondary)
+                .lineSpacing(6)
+                .padding(.bottom, 4)
 
-                        Section(header: Text("All Seasons")
-                                .font(.headline)
-                                .padding(.top, 18)) {
-                        }
-                        .listStyle(GroupedListStyle())
-                    
-                        ForEach(allSeasons, id: \.id) { sekki in
-                            Section(header: Text("\(sekki.kanji)" + (sekki.id == seasonData.id ? " — NOW" : ""))) {
-                                SeasonCardView(seasonData: (id: sekki.id,
-                                                            kanji: sekki.kanji,
-                                                            notes: sekki.notes,
-                                                            title: sekki.title,
-                                                            description: sekki.description))
-                            }
-                            .listStyle(InsetGroupedListStyle())
-                        }
-
-                        Section {
-                            Link(destination: URL(string: "https://smallseasons.guide")!) {
-                                Text("https://smallseasons.guide")
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .foregroundColor(.primary)
-                                    .underline()
-                            }
-                        }
-                        .listRowInsets(EdgeInsets())
+                Section(header: Text("All Seasons")
+                        .font(.headline)
+                        .padding(.top, 18)) {
+                }
+                .listStyle(GroupedListStyle())
+            
+                ForEach(allSeasons, id: \.id) { sekki in
+                    Section(header: Text("\(sekki.kanji)" + (sekki.id == seasonData.id ? " — NOW" : ""))) {
+                        SeasonCardView(seasonData: (id: sekki.id,
+                                                    kanji: sekki.kanji,
+                                                    notes: sekki.notes,
+                                                    title: sekki.title,
+                                                    description: sekki.description))
                     }
-                    .navigationBarTitle("Small Seasons", displayMode: .inline)
-                    .onAppear {
-                        loadSeason()
-                        loadAllSeasons()
+                    .listStyle(InsetGroupedListStyle())
+                }
+
+                Section {
+                    Link(destination: URL(string: "https://smallseasons.guide")!) {
+                        Text("https://smallseasons.guide")
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .foregroundColor(.primary)
+                            .underline()
                     }
                 }
+                .listRowInsets(EdgeInsets())
+            }
+            .navigationBarTitle("Small Seasons", displayMode: .inline)
+            .onAppear {
+                loadSeason()
+                loadAllSeasons()
+            }
+        }
     }
 }
 
