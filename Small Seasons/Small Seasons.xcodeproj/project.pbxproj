@@ -25,6 +25,8 @@
 		AE176DCC2B65332F00918458 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = AE176DC92B65332E00918458 /* content.json */; };
 		AE176DCD2B65332F00918458 /* order.py in Resources */ = {isa = PBXBuildFile; fileRef = AE176DCA2B65332E00918458 /* order.py */; };
 		AE176DCE2B65332F00918458 /* order.py in Resources */ = {isa = PBXBuildFile; fileRef = AE176DCA2B65332E00918458 /* order.py */; };
+		AE1FF72F2C4C36A2003B56D3 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AE1FF72E2C4C36A1003B56D3 /* background.jpg */; };
+		AE1FF7302C4C36A2003B56D3 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AE1FF72E2C4C36A1003B56D3 /* background.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,7 @@
 		AE176DBC2B64FB6600918458 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AE176DC92B65332E00918458 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 		AE176DCA2B65332E00918458 /* order.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = order.py; sourceTree = "<group>"; };
+		AE1FF72E2C4C36A1003B56D3 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +119,7 @@
 				AE176D992B64FB4D00918458 /* Small_SeasonsApp.swift */,
 				AE176D9B2B64FB4D00918458 /* ContentView.swift */,
 				AE176D9D2B64FB5100918458 /* Assets.xcassets */,
+				AE1FF72E2C4C36A1003B56D3 /* background.jpg */,
 				AE176D9F2B64FB5100918458 /* Preview Content */,
 			);
 			path = "Small Seasons";
@@ -242,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE176DCD2B65332F00918458 /* order.py in Resources */,
+				AE1FF72F2C4C36A2003B56D3 /* background.jpg in Resources */,
 				AE176DA12B64FB5100918458 /* Preview Assets.xcassets in Resources */,
 				AE176D9E2B64FB5100918458 /* Assets.xcassets in Resources */,
 				AE176DCB2B65332F00918458 /* content.json in Resources */,
@@ -253,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE176DCE2B65332F00918458 /* order.py in Resources */,
+				AE1FF7302C4C36A2003B56D3 /* background.jpg in Resources */,
 				AE176DBB2B64FB6600918458 /* Assets.xcassets in Resources */,
 				AE176DCC2B65332F00918458 /* content.json in Resources */,
 			);
