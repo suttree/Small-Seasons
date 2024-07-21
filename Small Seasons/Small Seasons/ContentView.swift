@@ -68,6 +68,13 @@ struct ContentView: View {
                 loadSeason()
                 loadAllSeasons()
             }
+            .background(
+                GeometryReader { geometry in
+                    Image("background")
+                        .resizable(resizingMode: .tile)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                }
+            )
         }
     }
 }
